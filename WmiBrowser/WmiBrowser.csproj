@@ -51,11 +51,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CustomGridView.cs">
+    <Compile Include="CustomListView.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="CustomGridView.Designer.cs">
-      <DependentUpon>CustomGridView.cs</DependentUpon>
+    <Compile Include="CustomListView.Designer.cs">
+      <DependentUpon>CustomListView.cs</DependentUpon>
     </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
@@ -94,6 +94,7 @@
   <ItemGroup>
     <None Include="Resources\cancel.png" />
     <None Include="Resources\table_refresh.png" />
+    <None Include="Resources\update.png" />
     <Content Include="SaaUtils.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

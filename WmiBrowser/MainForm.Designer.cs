@@ -32,21 +32,21 @@
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.toolStripContainer1 = new System.Windows.Forms.ToolStripContainer();
+            this.toolStrip = new System.Windows.Forms.ToolStrip();
+            this.buttonUpdate = new System.Windows.Forms.ToolStripButton();
+            this.buttonCancel = new System.Windows.Forms.ToolStripButton();
             this.listBox = new System.Windows.Forms.ListBox();
-            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.tableUpdate = new System.Windows.Forms.ToolStripButton();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.textBoxClassDesc = new System.Windows.Forms.TextBox();
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.table = new WmiBrowser.CustomGridView();
+            this.listView = new CustomListView();
+            this.colProperty = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colCimType = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colValue = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.textBoxPropertyDesc = new System.Windows.Forms.TextBox();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            this.Property = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Cim_Type = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Value = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -56,17 +56,16 @@
             this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.toolStripContainer1.BottomToolStripPanel.SuspendLayout();
             this.toolStripContainer1.ContentPanel.SuspendLayout();
-            this.toolStripContainer1.TopToolStripPanel.SuspendLayout();
             this.toolStripContainer1.SuspendLayout();
-            this.toolStrip1.SuspendLayout();
+            this.toolStrip.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).BeginInit();
             this.splitContainer3.Panel1.SuspendLayout();
             this.splitContainer3.Panel2.SuspendLayout();
             this.splitContainer3.SuspendLayout();
             this.groupBox3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.table)).BeginInit();
             this.groupBox4.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -119,10 +118,14 @@
             // toolStripContainer1
             // 
             // 
+            // toolStripContainer1.BottomToolStripPanel
+            // 
+            this.toolStripContainer1.BottomToolStripPanel.Controls.Add(this.toolStrip);
+            // 
             // toolStripContainer1.ContentPanel
             // 
             this.toolStripContainer1.ContentPanel.Controls.Add(this.listBox);
-            this.toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(294, 356);
+            this.toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(294, 331);
             this.toolStripContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.toolStripContainer1.Location = new System.Drawing.Point(3, 16);
             this.toolStripContainer1.Name = "toolStripContainer1";
@@ -130,9 +133,36 @@
             this.toolStripContainer1.TabIndex = 1;
             this.toolStripContainer1.Text = "toolStripContainer1";
             // 
-            // toolStripContainer1.TopToolStripPanel
+            // toolStrip
             // 
-            this.toolStripContainer1.TopToolStripPanel.Controls.Add(this.toolStrip1);
+            this.toolStrip.Dock = System.Windows.Forms.DockStyle.None;
+            this.toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.buttonUpdate,
+            this.buttonCancel});
+            this.toolStrip.Location = new System.Drawing.Point(3, 0);
+            this.toolStrip.Name = "toolStrip";
+            this.toolStrip.Size = new System.Drawing.Size(89, 25);
+            this.toolStrip.TabIndex = 0;
+            // 
+            // buttonUpdate
+            // 
+            this.buttonUpdate.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.buttonUpdate.Image = global::WmiBrowser.Properties.Resources.update;
+            this.buttonUpdate.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.buttonUpdate.Name = "buttonUpdate";
+            this.buttonUpdate.Size = new System.Drawing.Size(23, 22);
+            this.buttonUpdate.Text = "Update properties";
+            this.buttonUpdate.Click += new System.EventHandler(this.UpdateProperties);
+            // 
+            // buttonCancel
+            // 
+            this.buttonCancel.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.buttonCancel.Image = global::WmiBrowser.Properties.Resources.cancel;
+            this.buttonCancel.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.buttonCancel.Name = "buttonCancel";
+            this.buttonCancel.Size = new System.Drawing.Size(23, 22);
+            this.buttonCancel.Text = "toolStripButton1";
+            this.buttonCancel.Visible = false;
             // 
             // listBox
             // 
@@ -140,30 +170,10 @@
             this.listBox.FormattingEnabled = true;
             this.listBox.Location = new System.Drawing.Point(0, 0);
             this.listBox.Name = "listBox";
-            this.listBox.Size = new System.Drawing.Size(294, 356);
+            this.listBox.Size = new System.Drawing.Size(294, 331);
             this.listBox.Sorted = true;
             this.listBox.TabIndex = 0;
             this.listBox.SelectedIndexChanged += new System.EventHandler(this.listBoxClasses_SelectedIndexChanged);
-            // 
-            // toolStrip1
-            // 
-            this.toolStrip1.Dock = System.Windows.Forms.DockStyle.None;
-            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tableUpdate});
-            this.toolStrip1.Location = new System.Drawing.Point(3, 0);
-            this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(35, 25);
-            this.toolStrip1.TabIndex = 0;
-            // 
-            // tableUpdate
-            // 
-            this.tableUpdate.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tableUpdate.Image = global::WmiBrowser.Properties.Resources.table_refresh;
-            this.tableUpdate.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tableUpdate.Name = "tableUpdate";
-            this.tableUpdate.Size = new System.Drawing.Size(23, 22);
-            this.tableUpdate.Text = "Update table";
-            this.tableUpdate.Click += new System.EventHandler(this.tableUpdate_Click);
             // 
             // groupBox2
             // 
@@ -207,7 +217,7 @@
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.table);
+            this.groupBox3.Controls.Add(this.listView);
             this.groupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox3.Location = new System.Drawing.Point(0, 0);
             this.groupBox3.Name = "groupBox3";
@@ -216,32 +226,36 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Class properties";
             // 
-            // table
+            // listView
             // 
-            this.table.AllowUserToAddRows = false;
-            this.table.AllowUserToDeleteRows = false;
-            this.table.AllowUserToOrderColumns = true;
-            this.table.AllowUserToResizeRows = false;
-            this.table.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.table.BackgroundColor = System.Drawing.SystemColors.Window;
-            this.table.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.table.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
-            this.table.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.table.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Property,
-            this.Cim_Type,
-            this.Value,
-            this.Description});
-            this.table.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.table.Location = new System.Drawing.Point(3, 16);
-            this.table.MultiSelect = false;
-            this.table.Name = "table";
-            this.table.ReadOnly = true;
-            this.table.RowHeadersVisible = false;
-            this.table.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.table.Size = new System.Drawing.Size(474, 381);
-            this.table.TabIndex = 0;
-            this.table.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gridView_CellClick);
+            this.listView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.colProperty,
+            this.colCimType,
+            this.colValue});
+            this.listView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listView.FullRowSelect = true;
+            this.listView.HideSelection = false;
+            this.listView.Location = new System.Drawing.Point(3, 16);
+            this.listView.MultiSelect = false;
+            this.listView.Name = "listView";
+            this.listView.Size = new System.Drawing.Size(474, 381);
+            this.listView.TabIndex = 0;
+            this.listView.UseCompatibleStateImageBehavior = false;
+            this.listView.View = System.Windows.Forms.View.Details;
+            this.listView.KeyUp += new System.Windows.Forms.KeyEventHandler(this.listView_KeyUp);
+            this.listView.MouseClick += new System.Windows.Forms.MouseEventHandler(this.listView_MouseClick);
+            // 
+            // colProperty
+            // 
+            this.colProperty.Text = "Property";
+            // 
+            // colCimType
+            // 
+            this.colCimType.Text = "CimType";
+            // 
+            // colValue
+            // 
+            this.colValue.Text = "Value";
             // 
             // groupBox4
             // 
@@ -265,32 +279,6 @@
             this.textBoxPropertyDesc.Size = new System.Drawing.Size(474, 138);
             this.textBoxPropertyDesc.TabIndex = 1;
             // 
-            // Property
-            // 
-            this.Property.HeaderText = "Property";
-            this.Property.Name = "Property";
-            this.Property.ReadOnly = true;
-            // 
-            // Cim_Type
-            // 
-            this.Cim_Type.HeaderText = "CimType";
-            this.Cim_Type.Name = "Cim_Type";
-            this.Cim_Type.ReadOnly = true;
-            // 
-            // Value
-            // 
-            this.Value.FillWeight = 152.2843F;
-            this.Value.HeaderText = "Value";
-            this.Value.Name = "Value";
-            this.Value.ReadOnly = true;
-            // 
-            // Description
-            // 
-            this.Description.HeaderText = "Description";
-            this.Description.Name = "Description";
-            this.Description.ReadOnly = true;
-            this.Description.Visible = false;
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -311,13 +299,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
             this.splitContainer2.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
+            this.toolStripContainer1.BottomToolStripPanel.ResumeLayout(false);
+            this.toolStripContainer1.BottomToolStripPanel.PerformLayout();
             this.toolStripContainer1.ContentPanel.ResumeLayout(false);
-            this.toolStripContainer1.TopToolStripPanel.ResumeLayout(false);
-            this.toolStripContainer1.TopToolStripPanel.PerformLayout();
             this.toolStripContainer1.ResumeLayout(false);
             this.toolStripContainer1.PerformLayout();
-            this.toolStrip1.ResumeLayout(false);
-            this.toolStrip1.PerformLayout();
+            this.toolStrip.ResumeLayout(false);
+            this.toolStrip.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.splitContainer3.Panel1.ResumeLayout(false);
@@ -325,7 +313,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).EndInit();
             this.splitContainer3.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.table)).EndInit();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             this.ResumeLayout(false);
@@ -342,17 +329,17 @@
 		private System.Windows.Forms.GroupBox groupBox3;
 		private System.Windows.Forms.TextBox textBoxClassDesc;
 		private System.ComponentModel.BackgroundWorker backgroundWorker1;
-		private CustomGridView table;
 		private System.Windows.Forms.SplitContainer splitContainer3;
 		private System.Windows.Forms.GroupBox groupBox4;
 		private System.Windows.Forms.TextBox textBoxPropertyDesc;
 		private System.Windows.Forms.ToolStripContainer toolStripContainer1;
-		private System.Windows.Forms.ToolStrip toolStrip1;
-		private System.Windows.Forms.ToolStripButton tableUpdate;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Property;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Cim_Type;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Value;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Description;
+		private System.Windows.Forms.ToolStrip toolStrip;
+		private System.Windows.Forms.ToolStripButton buttonUpdate;
+        private CustomListView listView;
+        private System.Windows.Forms.ColumnHeader colProperty;
+        private System.Windows.Forms.ColumnHeader colCimType;
+        private System.Windows.Forms.ColumnHeader colValue;
+        private System.Windows.Forms.ToolStripButton buttonCancel;
     }
 }
 

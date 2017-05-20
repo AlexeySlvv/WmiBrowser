@@ -1,4 +1,7 @@
-﻿using System;
+﻿// CimType: https://msdn.microsoft.com/ru-ru/library/system.management.cimtype(v=vs.110).aspx
+// Win32 Classes: https://msdn.microsoft.com/en-us/library/aa394084(v=vs.85).aspx
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Management;
@@ -61,25 +64,6 @@ namespace WmiBrowser
 			textBoxClassDesc.Text = _wmiClassCollection[listBox.Text].Description;
 		}
 
-		private enum ETable
-		{
-			Name = 0,
-			CimType = 1,
-			Value = 2,
-			Description = 3
-		}
-
-		private void gridView_CellClick(object sender, DataGridViewCellEventArgs e)
-		{
-			var currentRow = (sender as CustomGridView)?.CurrentRow;
-			if (currentRow == null)
-				return;
-
-			textBoxPropertyDesc.Text = currentRow.Cells[(int)ETable.Description].Value?.ToString();
-		}
-
-		// CimType: https://msdn.microsoft.com/ru-ru/library/system.management.cimtype(v=vs.110).aspx
-
 		/// <summary>
 		/// CimType to String dictionary
 		/// </summary>
@@ -105,7 +89,12 @@ namespace WmiBrowser
 				[CimType.UInt8] = "UInt8",
 			};
 
-		private async void tableUpdate_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Property name to description
+        /// </summary>
+        readonly Dictionary<string, string> _nameToDescription = new Dictionary<string, string>();
+
+		private async void UpdateProperties(object sender, EventArgs e)
 		{
 			if (listBox.SelectedItem == null)
 			{
@@ -118,9 +107,10 @@ namespace WmiBrowser
 				Cursor = Cursors.WaitCursor;
 				listBox.Enabled = false;
 
+                _nameToDescription.Clear();
+                listView.Items.Clear();
 				textBoxPropertyDesc.Text = null;
-				table.Rows.Clear();
-
+                
 				string className = _wmiClassCollection[listBox.Text].Name;
 				const string qDescription = "Description";
 
@@ -135,6 +125,11 @@ namespace WmiBrowser
 					ManagementObjectSearcher searcher = new ManagementObjectSearcher($"SELECT * FROM {className}");
 					foreach (ManagementObject mo in searcher.Get())
 					{
+                        ListViewGroup moGroup = new ListViewGroup(mo.Path.RelativePath);
+                        Invoke(new Action(() => {
+                            listView.Groups.Add(moGroup);
+                        }));
+
 						// fill rows
 						foreach (PropertyData p in properties)
 						{
@@ -184,14 +179,18 @@ namespace WmiBrowser
 								if (q.Name.Equals(qDescription))
 								{
 									pDescription = processClass.GetPropertyQualifierValue(pName, qDescription)?.ToString();
+                                    _nameToDescription[pName] = pDescription;
 									break;
 								}
 							}
 
-							table.Invoke(new Action(() =>
-							{
-								table.Rows.Add(pName, pCimType, pValue, pDescription);
-							}));
+                            ListViewItem pItem = new ListViewItem(new string[] { pName, pCimType, pValue })
+                            {
+                                Group = moGroup
+                            };
+                            Invoke(new Action(() => {
+                                listView.Items.Add(pItem);
+                            }));
 						}
 					}
 				});
@@ -203,5 +202,28 @@ namespace WmiBrowser
 			}
 		}
 
-	}
+        private void listView_MouseClick(object sender, MouseEventArgs e)
+        {   
+            ShowPropertyDescription();
+        }
+
+        /// <summary>
+        /// show property description
+        /// </summary>
+        private void ShowPropertyDescription()
+        {
+            if (listView.SelectedItems.Count > 0
+                && listView.SelectedItems[0].SubItems.Count > 0)
+            {
+                string pName = listView.SelectedItems[0].SubItems[0].Text;
+                if (_nameToDescription.ContainsKey(pName))
+                    textBoxPropertyDesc.Text = _nameToDescription[pName];
+            }
+        }
+
+        private void listView_KeyUp(object sender, KeyEventArgs e)
+        {
+            ShowPropertyDescription();
+        }
+    }
 }
