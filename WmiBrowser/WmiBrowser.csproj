@@ -108,7 +108,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="application_side_list.ico" />
-    <Content Include="README.txt" />
+    <None Include="README.md" />
     <None Include="Resources\world_link.png" />
     <None Include="Resources\google_custom_search.png" />
     <None Include="Resources\filter.png" />
