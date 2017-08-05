@@ -7,7 +7,7 @@ namespace WmiBrowser
 	static class WmiBrowserMain
 	{
 
-		public const string ProgramName = "WmiBrowser";
+		public const string Name = "WmiBrowser";
 
 		/// <summary>
 		/// The main entry point for the application.
@@ -28,7 +28,7 @@ namespace WmiBrowser
 		/// </summary>
 		private static void OnThreadException(object sender, ThreadExceptionEventArgs args)
 		{
-			MessageBox.Show($"{args.Exception.Message}", ProgramName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+			MessageBox.Show($@"{args.Exception.Message}", Name, MessageBoxButtons.OK, MessageBoxIcon.Error);
 		}
 
 	}

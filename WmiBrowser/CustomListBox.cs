@@ -13,11 +13,11 @@ namespace WmiBrowser
 
 		private readonly TextBox FilterTextBox = new TextBox();
 
-		private bool IsShowFilter = false;
+		private bool IsShowFilter;
 
 		public void ShowFilter()
 		{
-			FilterTextBox.SetBounds(0, 0, this.Width, 21);
+			FilterTextBox.SetBounds(0, 0, Width, 21);
 			FilterTextBox.KeyPress += OnFilterTextBoxKeyPress;
 			Controls.Add(FilterTextBox);
 			FilterTextBox.Show();

@@ -73,10 +73,19 @@
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="NewConnectForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NewConnectForm.Designer.cs">
+      <DependentUpon>NewConnectForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="WmiBrowserMain.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NewConnectForm.resx">
+      <DependentUpon>NewConnectForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -108,6 +117,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="application_side_list.ico" />
+    <None Include="Resources\server_connect.png" />
     <None Include="README.md" />
     <None Include="Resources\world_link.png" />
     <None Include="Resources\google_custom_search.png" />
